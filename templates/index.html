@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h2 class="animated fadeIn">Secure Your Data</h2>
+        <p class="animated fadeIn delay-1">Generate strong hash codes for your sensitive information.</p>
+    </div>
+</section>
+
+<section class="hash-form-section">
+    <div class="form-container animated fadeIn delay-2">
+        <h3>Generate Hash</h3>
+        <form action="/process" method="post" class="hash-form">
+            <div class="form-group">
+                <label for="operation">Operation</label>
+                <select id="operation" name="operation">
+                    <option value="encrypt">Encrypt</option>
+                    <option value="decrypt">Decrypt</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password/Hash</label>
+                <input type="text" id="password" name="password" required placeholder="Enter password or hash">
+            </div>
+            
+            <div class="form-group">
+                <label for="algorithm">Select Algorithm</label>
+                <select id="algorithm" name="algorithm">
+                    <option value="sha256">SHA-256</option>
+                    <option value="sha512">SHA-512</option>
+                    <option value="md5">MD5</option>
+                    <option value="base64">Base64</option>
+                    <option value="caesar">Caesar Cipher</option>
+                    <option value="aes">AES-256</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-hash">Process</button>
+        </form>
+    </div>
+</section>
+
+{% if result %}
+<section class="result-section animated fadeIn">
+    <div class="result-container">
+        <h2>Result</h2>
+        <div class="result-details">
+            <div class="detail-group">
+                <h3>Input Details</h3>
+                <p><strong>Name:</strong> {{ name }}</p>
+                <p><strong>Algorithm:</strong> {{ algorithm }}</p>
+            </div>
+            <div class="hash-result">
+                <h3>Processed Output</h3>
+                <div class="hash-box">
+                    <p id="hashText">{{ result }}</p>
+                    <button class="btn-copy" onclick="copyToClipboard()">
+                        <i class="fas fa-copy"></i>
+                        Copy
+                    </button>
+                    <span class="copied-message">Copied!</span>
+                </div>
+            </div>
+        </div>
+        <div class="result-actions">
+            <a href="/" class="btn-primary">Process Another</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section id="about" class="about-section">
+    <h2>About SecureHash</h2>
+    <div class="about-content">
+        <div class="about-text">
+            <p>SecureHash provides a simple way to generate secure hash codes for your sensitive information. Our tool uses industry-standard cryptographic algorithms to ensure that your data is protected.</p>
+            <p>Hashing is a one-way process that converts your original text into a fixed-length string of characters, making it impossible to reverse-engineer the original input from the hash output.</p>
+        </div>
+    </div>
+</section>
+
+<section id="algorithms" class="algorithms-section">
+    <h2>Our Hashing Algorithms</h2>
+    <div class="algorithm-cards">
+        <div class="algorithm-card">
+            <i class="fas fa-lock"></i>
+            <h3>SHA-256</h3>
+            <p>A widely used cryptographic hash function that produces a 256-bit (32-byte) hash value. Part of the SHA-2 family, it's considered very secure and is used in many security applications and protocols.</p>
+        </div>
+        <div class="algorithm-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>SHA-512</h3>
+            <p>Provides even stronger security with a 512-bit (64-byte) hash value. It's more computationally intensive but offers enhanced protection against brute-force attacks.</p>
+        </div>
+        <div class="algorithm-card">
+            <i class="fas fa-key"></i>
+            <h3>MD5</h3>
+            <p>A widely used hash function producing a 128-bit hash value. While not recommended for security-critical applications due to vulnerabilities, it's still useful for checksums and non-security purposes.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <div class="contact-content">
+        <p>Have questions or suggestions? Reach out to us!</p>
+        <a href="mailto:contact@securehash.com" class="contact-button">Email Us</a>
+    </div>
+</section>
+{% endblock %}
